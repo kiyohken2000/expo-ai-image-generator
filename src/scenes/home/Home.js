@@ -19,18 +19,18 @@ export default function Home() {
   const openai = new OpenAIApi(configuration);
 
   const generateImage = async () => {
-    setLoading(true);
     try {
+      setLoading(true);
       const res = await openai.createImage({
         prompt: text,
         n: 1,
         size: "512x512",
       });
-      setLoading(false);
       setResult(res.data.data[0].url);
     } catch (error) {
-      setLoading(false);
       console.error(`Error generating image: ${error}`);
+    } finally {
+      setLoading(false);
     }
   };
   
